@@ -4,16 +4,22 @@ import java.math.BigDecimal
 import javax.persistence.*
 
 @Entity
-data class AccountEntry(
+class AccountEntry() {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        val id: Long,
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private var id: Long? = null
 
-        val name: String,
+    lateinit var name: String
 
-        val amount: BigDecimal,
+    lateinit var amount: BigDecimal
 
-        @Enumerated(value = EnumType.STRING)
-        val entryType: AccountEntryType
-)
+    @Enumerated(value = EnumType.STRING)
+    lateinit var entryType: AccountEntryType
+
+    constructor(name: String, amount: BigDecimal, entryType: AccountEntryType) : this() {
+        this.name = name
+        this.amount = amount
+        this.entryType = entryType
+    }
+}

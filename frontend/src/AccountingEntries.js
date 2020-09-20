@@ -18,14 +18,24 @@ export default function AccountingEntries(accountEntries) {
 
 function createAccountingEntry(accountEntries) {
     const entries = accountEntries.map(accountEntry => {
-        const isSpent = accountEntry.isSpent
-        return (
-            <tr>
-                <td>{accountEntry.desc}</td>
-                <td className={isSpent ? "red-text darken-4" : "green-text darken-4"}>
-                    {isSpent ? "-" : "+"}{accountEntry.amount}</td>
-            </tr>
-        )
+        const entryType = accountEntry.entryType
+        switch (entryType) {
+            case "COST":
+                return (
+                    <tr>
+                        <td>{accountEntry.name}</td>
+                        <td className="red-text darken-4">-{accountEntry.amount}</td>
+                    </tr>
+                )
+            case "PROFIT":
+                return (
+                    <tr>
+                        <td>{accountEntry.name}</td>
+                        <td className="green-text darken-4">+{accountEntry.amount}</td>
+                    </tr>
+                )
+        }
+
     })
     return entries
 }
